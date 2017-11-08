@@ -1,0 +1,16 @@
+version: "2"
+services:
+    nginx:
+        image: nginx:latest
+        ports:
+            - "8080:80"
+        depends_on:
+            - fpm
+        volumes_from:
+            - fpm
+        volumes:
+            - ./infra/nginx.conf:/etc/nginx/conf.d/default.conf
+    fpm:
+        image: php:7-fpm
+        volumes:
+            - ./code:/code
