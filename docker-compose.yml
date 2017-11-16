@@ -9,8 +9,8 @@ services:
         volumes_from:
             - fpm
         volumes:
-            - ./infra/nginx.conf:/etc/nginx/conf.d/default.conf
+            - ./infra/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     fpm:
-        image: php:7-fpm
+        build: infra/fpm/.
         volumes:
             - ./code:/code
