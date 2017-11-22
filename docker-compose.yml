@@ -5,12 +5,22 @@ services:
         ports:
             - "8080:80"
         depends_on:
-            - fpm
-        volumes_from:
-            - fpm
+            - a
+            - b
+        #volumes_from:
+        #    - fpm
         volumes:
             - ./infra/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-    fpm:
-        build: infra/fpm/.
+        command: [nginx-debug, '-g', 'daemon off;']
+    #fpm:
+    #    build: infra/fpm/.
+    #    volumes:
+    #        - ./code:/code
+    a:
+        image: php:7-fpm
         volumes:
-            - ./code:/code
+            - ./a/code:/code/a
+    b:
+        image: php:7-fpm
+        volumes:
+            - ./b/code:/code/b
